@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+    postgres:
+        image: 'postgres:13.2-alpine'
+        container_name: 'postgres'
+        environment:
+            POSTGRES_USER: 'postgres'
+            POSTGRES_PASSWORD: 'docker'
+            POSTGRES_DB: 'backend_test'
+        ports:
+            - 5432:5432
+        volumes:
+            - postgres-data:/data
+
+volumes:
+    postgres-data:
