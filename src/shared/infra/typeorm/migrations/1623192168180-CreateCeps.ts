@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export default class CreateCep1623182457766 implements MigrationInterface {
+export default class CreateCeps1623192168180 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'cepTB',
+        name: 'cepsTB',
         columns: [
           {
             name: 'id',
@@ -58,6 +58,6 @@ export default class CreateCep1623182457766 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('cep');
+    await queryRunner.dropTable('cepsTB');
   }
 }

@@ -5,11 +5,11 @@ import {
   TableForeignKey,
 } from 'typeorm';
 
-export default class CreateDoctors1623181684696 implements MigrationInterface {
+export default class CreateDoctors1623192248873 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'doctors',
+        name: 'doctorsTB',
         columns: [
           {
             name: 'id',
@@ -54,7 +54,7 @@ export default class CreateDoctors1623181684696 implements MigrationInterface {
         foreignKeys: [
           new TableForeignKey({
             name: 'FK_CEP',
-            referencedTableName: 'cepTB',
+            referencedTableName: 'cepsTB',
             referencedColumnNames: ['id'],
             columnNames: ['cep_id'],
             onDelete: 'RESTRICT',
@@ -66,6 +66,6 @@ export default class CreateDoctors1623181684696 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('doctors');
+    await queryRunner.dropTable('doctorsTB');
   }
 }
