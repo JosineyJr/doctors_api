@@ -1,5 +1,5 @@
 import AppError from '@shared/errors/AppError';
-import express, { Request, Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors';
 import cors from 'cors';
 import morgan from 'morgan';
@@ -16,19 +16,21 @@ app.get('/', (request: Request, response: Response) => {
   return response.send({ ok: 'aqui' });
 });
 
-app.use((err: Error, request: Request, response: Response) => {
-  if (err instanceof AppError) {
-    return response.status(err.statusCode).json({
+app.use(
+  (err: Error, request: Request, response: Response, next: NextFunction) => {
+    if (err instanceof AppError) {
+      return response.status(err.statusCode).json({
+        status: 'error',
+        message: err.message,
+      });
+    }
+
+    return response.status(500).json({
       status: 'error',
       message: err.message,
     });
-  }
-
-  return response.status(500).json({
-    status: 'error',
-    message: err.message,
-  });
-});
+  },
+);
 
 app.use(routes);
 
