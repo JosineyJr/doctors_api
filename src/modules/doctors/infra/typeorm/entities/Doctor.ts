@@ -1,14 +1,17 @@
 import Cep from '@modules/CEP/infra/typeorm/entities/Cep';
+import Specialty from '@modules/specialties/infra/typeorm/entities/Specialty';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('doctors')
+@Entity('doctorsTB')
 class Doctor {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -27,6 +30,16 @@ class Doctor {
 
   @ManyToOne(() => Cep, cep => cep.doctors)
   cep: Cep;
+
+  @ManyToMany(() => Specialty, specialty => specialty.doctors, {
+    cascade: ['insert', 'update'],
+  })
+  @JoinTable({
+    name: 'doctors_has_specialties',
+    joinColumn: { name: 'doctor_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'specialty_id', referencedColumnName: 'id' },
+  })
+  specialties: Specialty[];
 
   @CreateDateColumn()
   created_at: Date;

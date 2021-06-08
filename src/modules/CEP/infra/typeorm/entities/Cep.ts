@@ -1,7 +1,7 @@
 import Doctor from '@modules/doctors/infra/typeorm/entities/Doctor';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('cep')
+@Entity('cepsTB')
 class Cep {
   @PrimaryGeneratedColumn('uuid')
   id: string;
