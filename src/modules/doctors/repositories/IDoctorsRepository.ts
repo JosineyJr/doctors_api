@@ -10,4 +10,6 @@ export default interface IDoctorsRepository {
   findByCellPhone(cellPhone: string): Promise<Doctor>;
 
   findByLandline(landline: string): Promise<Doctor[]>;
+
+  findBySpecialties(specialty: string): Promise<Doctor[]>;
 }
