@@ -25,7 +25,7 @@ class DoctorsRepository implements IDoctorsRepository {
       specialties,
     });
 
-    this.ormRepository.save(createdDoctor);
+    await this.ormRepository.save(createdDoctor);
 
     return createdDoctor;
   }
