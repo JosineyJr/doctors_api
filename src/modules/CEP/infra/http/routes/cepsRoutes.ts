@@ -2,8 +2,8 @@ import { Router, Request, Response } from 'express';
 
 const cepsRoutes = Router();
 
-cepsRoutes.get('/', (request: Request, response: Response) => {
-  return response.send({ message: 'cep working' });
+cepsRoutes.get('/', async (request: Request, response: Response) => {
+  return response.send({ message: '' });
 });
 
 export default cepsRoutes;

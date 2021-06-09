@@ -1,6 +1,7 @@
 import AppError from '@shared/errors/AppError';
 import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors';
+import '@shared/container';
 import cors from 'cors';
 import morgan from 'morgan';
 import routes from './routes';

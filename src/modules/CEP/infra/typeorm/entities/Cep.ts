@@ -27,6 +27,15 @@ class Cep {
   @Column()
   ddd: string;
 
+  @Column()
+  ibge: string;
+
+  @Column()
+  gia: string;
+
+  @Column()
+  siafi: string;
+
   @OneToMany(() => Doctor, doctor => doctor.cep)
   doctors: Doctor[];
 }
