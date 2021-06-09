@@ -20,7 +20,7 @@ class Doctor {
   name: string;
 
   @Column()
-  CRM: string;
+  crm: string;
 
   @Column()
   landline: string;
