@@ -1,5 +1,7 @@
 import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
+import validations from '@config/valitadions';
+
 import DoctorsController from '../controllers/DoctorsController';
 
 const doctorsRoutes = Router();
@@ -10,9 +12,10 @@ doctorsRoutes.post(
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
-      crm: Joi.string().regex(RegExp('^\\d{7}$')),
-      cellPhone: Joi.string().regex(RegExp('^\\d{11,12}$')),
-      cep: Joi.string().regex(RegExp('^\\d{8}$')),
+      crm: Joi.string().regex(validations.crm),
+      cellPhone: Joi.string().regex(validations.cellPhone),
+      landline: Joi.string().regex(validations.landline),
+      cep: Joi.string().regex(validations.cep),
       specialties: Joi.array().items(Joi.string()).min(2),
     },
   }),
