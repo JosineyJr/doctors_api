@@ -4,10 +4,10 @@ import FakeCepsRepository from '@modules/cep/repositories/Fakes/FakeCepsReposito
 import RegisterCepService from '@modules/cep/services/RegisterCepService';
 import FakeDoctorsRepostiory from '@modules/doctors/repositories/fakes/FakeDoctorsRepository';
 import AppError from '@shared/errors/AppError';
+import Doctor from '@modules/doctors/infra/typeorm/entities/Doctor';
 import FakeSpecialtiesRepository from '@modules/specialties/repositories/Fakes/FakeSpecialtiesRepository';
 import CreateDoctorService from '../CreateDoctorService';
-import FindByIdService from '../FindDoctorByIdService';
-import ListAllDoctorsService from '../ListAllDoctorsService';
+import FindDoctorByIdService from '../FindDoctorByIdService';
 
 let fakeDoctorsRepository: FakeDoctorsRepostiory;
 let fakeSpecialtiesRepository: FakeSpecialtiesRepository;
@@ -17,10 +17,11 @@ let fakeCepProvider: FakeCepProvider;
 
 let createDoctorService: CreateDoctorService;
 let registerCepService: RegisterCepService;
-let listAllDoctorsService: ListAllDoctorsService;
-let findByIdService: FindByIdService;
+let findDoctorByIdService: FindDoctorByIdService;
 
-describe('FindById', () => {
+let createdDoctor: Doctor;
+
+describe('FindDoctorById', () => {
   beforeEach(async () => {
     fakeDoctorsRepository = new FakeDoctorsRepostiory();
     fakeSpecialtiesRepository = new FakeSpecialtiesRepository();
@@ -37,9 +38,8 @@ describe('FindById', () => {
       fakeSpecialtiesRepository,
       registerCepService,
     );
-    listAllDoctorsService = new ListAllDoctorsService(fakeDoctorsRepository);
-    findByIdService = new FindByIdService(fakeDoctorsRepository);
-    await createDoctorService.execute({
+    findDoctorByIdService = new FindDoctorByIdService(fakeDoctorsRepository);
+    createdDoctor = await createDoctorService.execute({
       cellPhone: faker.phone.phoneNumber(),
       cep: '35163143',
       crm: '1234567',
@@ -49,14 +49,13 @@ describe('FindById', () => {
     });
   });
   it('should not be able to find the doctor by id', async () => {
-    await expect(findByIdService.execute('id')).rejects.toBeInstanceOf(
+    await expect(findDoctorByIdService.execute('id')).rejects.toBeInstanceOf(
       AppError,
     );
   });
   it('should be able to find the doctor by id', async () => {
-    const allDoctors = await listAllDoctorsService.execute();
-    const findById = await findByIdService.execute(allDoctors[0].id);
-    expect(findById?.cep.cep).toEqual('35163143');
-    expect(findById?.crm).toEqual('1234567');
+    const findById = await findDoctorByIdService.execute(createdDoctor.id);
+    expect(findById.cep.cep).toEqual('35163143');
+    expect(findById.crm).toEqual('1234567');
   });
 });

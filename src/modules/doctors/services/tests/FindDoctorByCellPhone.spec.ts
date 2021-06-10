@@ -21,7 +21,7 @@ let findByCellPhoneService: FindDoctorByCellPhoneService;
 
 let createdDoctor: Doctor;
 
-describe('FindByCellPhone', () => {
+describe('FindDoctorByCellPhone', () => {
   beforeEach(async () => {
     fakeDoctorsRepository = new FakeDoctorsRepostiory();
     fakeSpecialtiesRepository = new FakeSpecialtiesRepository();

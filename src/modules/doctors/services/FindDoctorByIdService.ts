@@ -4,7 +4,7 @@ import Doctor from '../infra/typeorm/entities/Doctor';
 import IDoctorsRepository from '../repositories/IDoctorsRepository';
 
 @injectable()
-class FindByDoctorIdService {
+class FindDoctorByIdService {
   constructor(
     @inject('DoctorsRepository')
     private doctorsRepository: IDoctorsRepository,
@@ -19,4 +19,4 @@ class FindByDoctorIdService {
   }
 }
 
-export default FindByDoctorIdService;
+export default FindDoctorByIdService;

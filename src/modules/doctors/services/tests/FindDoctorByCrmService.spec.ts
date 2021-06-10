@@ -21,7 +21,7 @@ let findDoctorByCrmService: FindDoctorByCrmService;
 
 let createdDoctor: Doctor;
 
-describe('FindByCrm', () => {
+describe('FindDoctorByCrm', () => {
   beforeEach(async () => {
     fakeDoctorsRepository = new FakeDoctorsRepostiory();
     fakeSpecialtiesRepository = new FakeSpecialtiesRepository();
