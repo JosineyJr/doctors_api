@@ -6,6 +6,33 @@ import ISpecialtiesRepository from '../ISpecialtiesRepository';
 class FakeSpecialtiesRepository implements ISpecialtiesRepository {
   private specialties: Specialty[] = [];
 
+  constructor() {
+    const alergologia = new Specialty();
+
+    Object.assign(alergologia, {
+      id: faker.datatype.uuid(),
+      name: 'Alergologia',
+    });
+
+    const angiologia = new Specialty();
+
+    Object.assign(angiologia, {
+      id: faker.datatype.uuid(),
+      name: 'Angiologia',
+    });
+
+    const bucoMaxilo = new Specialty();
+
+    Object.assign(bucoMaxilo, {
+      id: faker.datatype.uuid(),
+      name: 'Buco maxilo',
+    });
+
+    this.specialties.push(alergologia);
+    this.specialties.push(angiologia);
+    this.specialties.push(bucoMaxilo);
+  }
+
   public async create({
     name,
     doctors,
@@ -47,6 +74,18 @@ class FakeSpecialtiesRepository implements ISpecialtiesRepository {
     );
 
     return specialtyFound;
+  }
+
+  public async findSpecialties(name: string[]): Promise<Specialty[]> {
+    const specialtiesFound = this.specialties.filter(findSpecialties =>
+      name.find(findName => findName === findSpecialties.name),
+    );
+
+    return specialtiesFound;
+  }
+
+  public async list(): Promise<Specialty[]> {
+    return [...this.specialties];
   }
 }
 

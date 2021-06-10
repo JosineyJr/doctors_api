@@ -6,7 +6,7 @@ export default class CreateSpecialties1623192312711
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'specialtiesTB',
+        name: 'specialties_tb',
         columns: [
           {
             name: 'id',

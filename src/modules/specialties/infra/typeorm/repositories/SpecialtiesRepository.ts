@@ -1,10 +1,14 @@
 import ICreateSpecialtyDTO from '@modules/specialties/dtos/ICreateSpecialtyDTO';
 import ISpecialtiesRepository from '@modules/specialties/repositories/ISpecialtiesRepository';
-import { getRepository, Repository } from 'typeorm';
+import { getRepository, In, Repository } from 'typeorm';
 import Specialty from '../entities/Specialty';
 
 class SpecialtiesRepository implements ISpecialtiesRepository {
-  private ormRepository: Repository<Specialty> = getRepository(Specialty);
+  private ormRepository: Repository<Specialty>;
+
+  constructor() {
+    this.ormRepository = getRepository(Specialty);
+  }
 
   public async create({
     name,
@@ -33,6 +37,20 @@ class SpecialtiesRepository implements ISpecialtiesRepository {
     });
 
     return specialtyFound;
+  }
+
+  public async findSpecialties(names: string[]): Promise<Specialty[]> {
+    const specialtiesFound = await this.ormRepository.find({
+      where: { name: In(names) },
+    });
+
+    return specialtiesFound;
+  }
+
+  public async list(): Promise<Specialty[]> {
+    const allSpecialties = await this.ormRepository.find({});
+
+    return allSpecialties;
   }
 }
 

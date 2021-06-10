@@ -1,7 +1,6 @@
 import faker from 'faker';
-import ICreateDoctorDTO from '@modules/doctors/dtos/ICreateDoctorDTO';
 import Doctor from '@modules/doctors/infra/typeorm/entities/Doctor';
-import Cep from '@modules/CEP/infra/typeorm/entities/Cep';
+import Cep from '@modules/cep/infra/typeorm/entities/Cep';
 import Specialty from '@modules/specialties/infra/typeorm/entities/Specialty';
 import IDoctorsRepository from '../IDoctorsRepository';
 
@@ -15,7 +14,7 @@ class FakeDoctorsRepostiory implements IDoctorsRepository {
     name,
     specialties,
     landline,
-  }: ICreateDoctorDTO): Promise<Doctor> {
+  }: Partial<Doctor>): Promise<Doctor> {
     const createdDoctor = new Doctor();
 
     Object.assign(createdDoctor, {
@@ -41,6 +40,10 @@ class FakeDoctorsRepostiory implements IDoctorsRepository {
     this.doctors[doctorIndexFound] = doctor;
 
     return this.doctors[doctorIndexFound];
+  }
+
+  public async listAll(): Promise<Doctor[]> {
+    return [...this.doctors];
   }
 
   public async findById(id: string): Promise<Doctor | undefined> {

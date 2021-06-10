@@ -36,7 +36,7 @@ export default class CreateDoctors1623192248873 implements MigrationInterface {
             type: 'varchar',
           },
           {
-            name: 'cep_id',
+            name: 'cepId',
             type: 'uuid',
             isNullable: true,
           },
@@ -56,7 +56,7 @@ export default class CreateDoctors1623192248873 implements MigrationInterface {
             name: 'FK_CEP',
             referencedTableName: 'cepsTB',
             referencedColumnNames: ['id'],
-            columnNames: ['cep_id'],
+            columnNames: ['cepId'],
             onDelete: 'RESTRICT',
             onUpdate: 'CASCADE',
           }),

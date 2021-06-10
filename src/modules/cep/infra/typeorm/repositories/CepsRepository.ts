@@ -1,10 +1,14 @@
-import IRegisterCepDTO from '@modules/CEP/dtos/IRegisterCepDTO';
-import ICepsRepository from '@modules/CEP/repositories/ICepsRepository';
+import IRegisterCepDTO from '@modules/cep/dtos/IRegisterCepDTO';
+import ICepsRepository from '@modules/cep/repositories/ICepsRepository';
 import { getRepository, Repository } from 'typeorm';
 import Cep from '../entities/Cep';
 
 class CepsRepository implements ICepsRepository {
-  private ormRepository: Repository<Cep> = getRepository(Cep);
+  private ormRepository: Repository<Cep>;
+
+  constructor() {
+    this.ormRepository = getRepository(Cep);
+  }
 
   public async register({
     bairro,
@@ -50,6 +54,10 @@ class CepsRepository implements ICepsRepository {
     const cepFound = await this.ormRepository.findOne({ where: { cep } });
 
     return cepFound;
+  }
+
+  public async list(): Promise<Cep[]> {
+    return this.ormRepository.find({});
   }
 }
 

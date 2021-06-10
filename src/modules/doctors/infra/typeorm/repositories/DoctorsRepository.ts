@@ -1,12 +1,46 @@
-import Cep from '@modules/CEP/infra/typeorm/entities/Cep';
-import ICreateDoctorDTO from '@modules/doctors/dtos/ICreateDoctorDTO';
+import Cep from '@modules/cep/infra/typeorm/entities/Cep';
 import IDoctorsRepository from '@modules/doctors/repositories/IDoctorsRepository';
 import Specialty from '@modules/specialties/infra/typeorm/entities/Specialty';
-import { getRepository, Repository } from 'typeorm';
+import { getRepository, Repository, SelectQueryBuilder } from 'typeorm';
 import Doctor from '../entities/Doctor';
 
 class DoctorsRepository implements IDoctorsRepository {
-  private ormRepository: Repository<Doctor> = getRepository(Doctor);
+  private ormRepository: Repository<Doctor>;
+
+  constructor() {
+    this.ormRepository = getRepository(Doctor);
+  }
+
+  private async findDoctorsWithCepAndSpecialties(
+    paramName?: string,
+    param?: Object,
+  ): Promise<SelectQueryBuilder<Doctor>> {
+    return this.ormRepository
+      .createQueryBuilder('doctor')
+      .leftJoinAndSelect('doctor.cep', 'cep')
+      .leftJoinAndSelect('doctor.specialties', 'specialties')
+      .where(paramName ? `doctor.${paramName} = :param` : '', { param })
+      .select([
+        'doctor.id',
+        'doctor.name',
+        'doctor.crm',
+        'doctor.landline',
+        'doctor.cellPhone',
+        'cep.id',
+        'cep.cep',
+        'cep.street',
+        'cep.complement',
+        'cep.district',
+        'cep.city',
+        'cep.uf',
+        'cep.ddd',
+        'cep.ibge',
+        'cep.gia',
+        'cep.siafi',
+        'specialties.id',
+        'specialties.name',
+      ]);
+  }
 
   public async create({
     cellPhone,
@@ -15,7 +49,7 @@ class DoctorsRepository implements IDoctorsRepository {
     name,
     specialties,
     landline,
-  }: ICreateDoctorDTO): Promise<Doctor> {
+  }: Partial<Doctor>): Promise<Doctor> {
     const createdDoctor = this.ormRepository.create({
       cellPhone,
       cep,
@@ -34,24 +68,31 @@ class DoctorsRepository implements IDoctorsRepository {
     return this.ormRepository.save(doctor);
   }
 
-  public async findById(id: string): Promise<Doctor | undefined> {
-    const doctorFound = await this.ormRepository.findOne(id);
+  public async listAll(): Promise<Doctor[]> {
+    const allDoctors = await this.findDoctorsWithCepAndSpecialties('', {});
 
-    return doctorFound;
+    return allDoctors.getMany();
+  }
+
+  public async findById(id: string): Promise<Doctor | undefined> {
+    const doctorFound = await this.findDoctorsWithCepAndSpecialties('id', id);
+
+    return doctorFound.getOne();
   }
 
   public async findByCrm(crm: string): Promise<Doctor | undefined> {
-    const doctorFound = await this.ormRepository.findOne({ where: { crm } });
+    const doctorFound = await this.findDoctorsWithCepAndSpecialties('crm', crm);
 
-    return doctorFound;
+    return doctorFound.getOne();
   }
 
   public async findByCellPhone(cellPhone: string): Promise<Doctor | undefined> {
-    const doctorFound = await this.ormRepository.findOne({
-      where: { cellPhone },
-    });
+    const doctorFound = await this.findDoctorsWithCepAndSpecialties(
+      'cellPhone',
+      cellPhone,
+    );
 
-    return doctorFound;
+    return doctorFound.getOne();
   }
 
   public async findByCep(cep: Cep): Promise<Doctor[]> {
@@ -61,9 +102,12 @@ class DoctorsRepository implements IDoctorsRepository {
   }
 
   public async findByLandline(landline: string): Promise<Doctor[]> {
-    const doctorsFound = await this.ormRepository.find({ where: { landline } });
+    const doctorsFound = await this.findDoctorsWithCepAndSpecialties(
+      'landline',
+      landline,
+    );
 
-    return doctorsFound;
+    return doctorsFound.getMany();
   }
 
   public async findBySpecialties(specialty: Specialty): Promise<Doctor[]> {

@@ -1,6 +1,6 @@
 import faker from 'faker';
-import IRegisterCepDTO from '@modules/CEP/dtos/IRegisterCepDTO';
-import Cep from '@modules/CEP/infra/typeorm/entities/Cep';
+import IRegisterCepDTO from '@modules/cep/dtos/IRegisterCepDTO';
+import Cep from '@modules/cep/infra/typeorm/entities/Cep';
 import ICepsRepository from '../ICepsRepository';
 
 class FakeCepsRepository implements ICepsRepository {
@@ -45,6 +45,10 @@ class FakeCepsRepository implements ICepsRepository {
     this.ceps[cepIndexFound] = cep;
 
     return this.ceps[cepIndexFound];
+  }
+
+  public async list(): Promise<Cep[]> {
+    return [...this.ceps];
   }
 
   public async findById(id: string): Promise<Cep | undefined> {

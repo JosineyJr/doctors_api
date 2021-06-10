@@ -8,7 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('specialtiesTB')
+@Entity('specialties_tb')
 class Specialty {
   @PrimaryGeneratedColumn('uuid')
   id: string;

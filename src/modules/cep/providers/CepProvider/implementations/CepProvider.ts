@@ -1,5 +1,5 @@
 import axios from 'axios';
-import IRegisterCepDTO from '@modules/CEP/dtos/IRegisterCepDTO';
+import IRegisterCepDTO from '@modules/cep/dtos/IRegisterCepDTO';
 import ICepProvider from '../models/ICepProvider';
 
 class CepProvider implements ICepProvider {

@@ -9,4 +9,8 @@ export default interface ISpecialtiesRepository {
   findById(id: string): Promise<Specialty | undefined>;
 
   findByName(name: string): Promise<Specialty | undefined>;
+
+  findSpecialties(names: string[]): Promise<Specialty[]>;
+
+  list(): Promise<Specialty[]>;
 }

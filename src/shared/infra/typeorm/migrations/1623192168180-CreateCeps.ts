@@ -14,7 +14,7 @@ export default class CreateCeps1623192168180 implements MigrationInterface {
             default: ' uuid_generate_v4()',
           },
           {
-            name: 'name',
+            name: 'cep',
             type: 'varchar',
           },
           {
@@ -40,6 +40,18 @@ export default class CreateCeps1623192168180 implements MigrationInterface {
           },
           {
             name: 'ddd',
+            type: 'varchar',
+          },
+          {
+            name: 'ibge',
+            type: 'varchar',
+          },
+          {
+            name: 'gia',
+            type: 'varchar',
+          },
+          {
+            name: 'siafi',
             type: 'varchar',
           },
           {

@@ -1,4 +1,4 @@
-import Cep from '@modules/CEP/infra/typeorm/entities/Cep';
+import Cep from '@modules/cep/infra/typeorm/entities/Cep';
 import Specialty from '@modules/specialties/infra/typeorm/entities/Specialty';
 import {
   Column,

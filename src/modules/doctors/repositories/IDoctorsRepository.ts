@@ -1,12 +1,13 @@
-import Cep from '@modules/CEP/infra/typeorm/entities/Cep';
+import Cep from '@modules/cep/infra/typeorm/entities/Cep';
 import Specialty from '@modules/specialties/infra/typeorm/entities/Specialty';
-import ICreateDoctorDTO from '../dtos/ICreateDoctorDTO';
 import Doctor from '../infra/typeorm/entities/Doctor';
 
 export default interface IDoctorsRepository {
-  create(doctorData: ICreateDoctorDTO): Promise<Doctor>;
+  create(doctorData: Partial<Doctor>): Promise<Doctor>;
 
   save(doctor: Doctor): Promise<Doctor>;
+
+  listAll(): Promise<Doctor[]>;
 
   findById(id: string): Promise<Doctor | undefined>;
 

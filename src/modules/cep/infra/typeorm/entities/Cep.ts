@@ -1,5 +1,12 @@
 import Doctor from '@modules/doctors/infra/typeorm/entities/Doctor';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity('cepsTB')
 class Cep {
@@ -38,6 +45,12 @@ class Cep {
 
   @OneToMany(() => Doctor, doctor => doctor.cep)
   doctors: Doctor[];
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
 }
 
 export default Cep;

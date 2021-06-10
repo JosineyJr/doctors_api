@@ -34,7 +34,7 @@ export default class CreateDoctorHasSpecialties1623192403270
           new TableForeignKey({
             name: 'FK_specialty',
             columnNames: ['specialty_id'],
-            referencedTableName: 'specialtiesTB',
+            referencedTableName: 'specialties_tb',
             referencedColumnNames: ['id'],
           }),
         ],

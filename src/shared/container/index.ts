@@ -1,12 +1,16 @@
-import CepsRepository from '@modules/CEP/infra/typeorm/repositories/CepsRepository';
-import CepProvider from '@modules/CEP/providers/CepProvider/implementations/CepProvider';
-import ICepProvider from '@modules/CEP/providers/CepProvider/models/ICepProvider';
-import ICepsRepository from '@modules/CEP/repositories/ICepsRepository';
+import { container } from 'tsyringe';
+
+import CepsRepository from '@modules/cep/infra/typeorm/repositories/CepsRepository';
+import CepProvider from '@modules/cep/providers/CepProvider/implementations/CepProvider';
+import ICepProvider from '@modules/cep/providers/CepProvider/models/ICepProvider';
+import ICepsRepository from '@modules/cep/repositories/ICepsRepository';
 import SpecialtiesRepository from '@modules/specialties/infra/typeorm/repositories/SpecialtiesRepository';
 import ISpecialtiesRepository from '@modules/specialties/repositories/ISpecialtiesRepository';
 import DoctorsRepository from '@modules/doctors/infra/typeorm/repositories/DoctorsRepository';
 import IDoctorsRepository from '@modules/doctors/repositories/IDoctorsRepository';
-import { container } from 'tsyringe';
+import RegisterCepService from '@modules/cep/services/RegisterCepService';
+import FindByDoctorIdService from '@modules/doctors/services/FindDoctorByIdService';
+import FindDoctorByCrmService from '@modules/doctors/services/FindDoctorByCrmService';
 
 container.registerSingleton<ICepsRepository>('CepsRepository', CepsRepository);
 
@@ -18,6 +22,21 @@ container.registerSingleton<ISpecialtiesRepository>(
 container.registerSingleton<IDoctorsRepository>(
   'DoctorsRepository',
   DoctorsRepository,
+);
+
+container.registerSingleton<FindByDoctorIdService>(
+  'FindByDoctorIdService',
+  FindByDoctorIdService,
+);
+
+container.registerSingleton<FindDoctorByCrmService>(
+  'FindDoctorByCrmService',
+  FindDoctorByCrmService,
+);
+
+container.registerSingleton<RegisterCepService>(
+  'RegisterCepService',
+  RegisterCepService,
 );
 
 container.registerSingleton<ICepProvider>('CepProvider', CepProvider);

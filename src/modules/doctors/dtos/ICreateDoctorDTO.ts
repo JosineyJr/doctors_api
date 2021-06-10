@@ -1,6 +1,3 @@
-import Cep from '@modules/CEP/infra/typeorm/entities/Cep';
-import Specialty from '@modules/specialties/infra/typeorm/entities/Specialty';
-
 export default interface ICreateDoctorDTO {
   name: string;
 
@@ -10,7 +7,7 @@ export default interface ICreateDoctorDTO {
 
   cellPhone: string;
 
-  cep: Cep;
+  cep: string;
 
-  specialties: Specialty[];
+  specialties: string[];
 }
