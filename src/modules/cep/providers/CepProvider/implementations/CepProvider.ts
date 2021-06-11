@@ -1,4 +1,5 @@
 import axios from 'axios';
+import AppError from '@shared/errors/AppError';
 import IRegisterCepDTO from '@modules/cep/dtos/IRegisterCepDTO';
 import ICepProvider from '../models/ICepProvider';
 
@@ -8,9 +9,13 @@ class CepProvider implements ICepProvider {
   });
 
   public async getAddress(cep: string): Promise<IRegisterCepDTO> {
-    const result = await this.api.get(`${cep}/json`);
+    const { data } = await this.api.get(`${cep}/json`);
 
-    return result.data as IRegisterCepDTO;
+    if (data.erro) {
+      throw new AppError('Cep does not exist', 401);
+    }
+
+    return data as IRegisterCepDTO;
   }
 }
 
