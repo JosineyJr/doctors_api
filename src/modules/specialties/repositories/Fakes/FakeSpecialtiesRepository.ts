@@ -28,9 +28,17 @@ class FakeSpecialtiesRepository implements ISpecialtiesRepository {
       name: 'Buco maxilo',
     });
 
+    const cardiologiaInfantil = new Specialty();
+
+    Object.assign(cardiologiaInfantil, {
+      id: faker.datatype.uuid(),
+      name: 'Cardiologia infantil',
+    });
+
     this.specialties.push(alergologia);
     this.specialties.push(angiologia);
     this.specialties.push(bucoMaxilo);
+    this.specialties.push(cardiologiaInfantil);
   }
 
   public async create({
@@ -80,6 +88,8 @@ class FakeSpecialtiesRepository implements ISpecialtiesRepository {
     const specialtiesFound = this.specialties.filter(findSpecialties =>
       name.find(findName => findName === findSpecialties.name),
     );
+
+    // console.log(specialtiesFound);
 
     return specialtiesFound;
   }
