@@ -48,7 +48,7 @@ class CreateDoctorService {
     if (specialtiesFound.length !== specialties.length)
       throw new AppError('The doctor`s specialties are not in database', 401);
 
-    const doctorCreated = await this.doctorsRepository.create({
+    const createdDoctor = await this.doctorsRepository.create({
       cellPhone,
       cep: cepData,
       crm,
@@ -57,7 +57,7 @@ class CreateDoctorService {
       landline,
     });
 
-    return doctorCreated;
+    return createdDoctor;
   }
 }
 
