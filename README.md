@@ -1,6 +1,6 @@
 # Teste back-end
 
-**Stock control api**
+**Doctors api**
 
 - [Teste back-end](#teste-back-end)
   - [Execução local](#execução-local)
