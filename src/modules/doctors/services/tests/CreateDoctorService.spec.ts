@@ -102,6 +102,26 @@ describe('CreateDoctor', () => {
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
+  it('should not be able to create a new doctor with a cell phone that has already been registered', async () => {
+    await createDoctorService.execute({
+      cellPhone: '3199999999',
+      cep: '35163143',
+      crm: '1234567',
+      name: faker.name.firstName(),
+      specialties: ['Alergologia', 'Angiologia'],
+      landline: faker.phone.phoneNumber(),
+    });
+    await expect(
+      createDoctorService.execute({
+        cellPhone: '3199999999',
+        cep: '60331400',
+        crm: '1234561',
+        name: faker.name.firstName(),
+        specialties: ['Alergologia', 'Buco maxilo'],
+        landline: faker.phone.phoneNumber(),
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
   it('should be able to create a new doctor with a new cep', async () => {
     const doctorCreated = await createDoctorService.execute({
       cellPhone: faker.phone.phoneNumber(),
