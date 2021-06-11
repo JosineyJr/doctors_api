@@ -7,7 +7,7 @@ import AppError from '@shared/errors/AppError';
 import Doctor from '@modules/doctors/infra/typeorm/entities/Doctor';
 import FakeSpecialtiesRepository from '@modules/specialties/repositories/Fakes/FakeSpecialtiesRepository';
 import CreateDoctorService from '../CreateDoctorService';
-import FindDoctorByCellPhoneService from '../FindDoctorByCellPhone';
+import FindDoctorByCellPhoneService from '../FindDoctorByCellPhoneService';
 
 let fakeDoctorsRepository: FakeDoctorsRepostiory;
 let fakeSpecialtiesRepository: FakeSpecialtiesRepository;
@@ -17,7 +17,7 @@ let fakeCepProvider: FakeCepProvider;
 
 let createDoctorService: CreateDoctorService;
 let registerCepService: RegisterCepService;
-let findByCellPhoneService: FindDoctorByCellPhoneService;
+let findDoctorByCellPhoneService: FindDoctorByCellPhoneService;
 
 let createdDoctor: Doctor;
 
@@ -38,7 +38,7 @@ describe('FindDoctorByCellPhone', () => {
       fakeSpecialtiesRepository,
       registerCepService,
     );
-    findByCellPhoneService = new FindDoctorByCellPhoneService(
+    findDoctorByCellPhoneService = new FindDoctorByCellPhoneService(
       fakeDoctorsRepository,
     );
     createdDoctor = await createDoctorService.execute({
@@ -51,12 +51,12 @@ describe('FindDoctorByCellPhone', () => {
     });
   });
   it('should not be able to find the doctor by cell phone', async () => {
-    await expect(findByCellPhoneService.execute('crm')).rejects.toBeInstanceOf(
-      AppError,
-    );
+    await expect(
+      findDoctorByCellPhoneService.execute('crm'),
+    ).rejects.toBeInstanceOf(AppError);
   });
-  it('should be able to find the doctor by id', async () => {
-    const findById = await findByCellPhoneService.execute(
+  it('should be able to find the doctor by cell phone', async () => {
+    const findById = await findDoctorByCellPhoneService.execute(
       createdDoctor.cellPhone,
     );
     expect(findById.cep.cep).toEqual('35163143');
