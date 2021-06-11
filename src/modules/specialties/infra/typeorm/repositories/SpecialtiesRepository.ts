@@ -47,7 +47,7 @@ class SpecialtiesRepository implements ISpecialtiesRepository {
     return specialtiesFound;
   }
 
-  public async list(): Promise<Specialty[]> {
+  public async listAll(): Promise<Specialty[]> {
     const allSpecialties = await this.ormRepository.find({});
 
     return allSpecialties;

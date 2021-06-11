@@ -6,7 +6,7 @@ export default interface ICepsRepository {
 
   save(cepData: Cep): Promise<Cep>;
 
-  list(): Promise<Cep[]>;
+  listAll(): Promise<Cep[]>;
 
   findById(id: string): Promise<Cep | undefined>;
 

@@ -1,16 +1,16 @@
 import faker from 'faker';
-import FakeCepProvider from '@modules/cep/providers/CepProvider/Fakes/FakeCepProvider';
-import FakeCepsRepository from '@modules/cep/repositories/Fakes/FakeCepsRepository';
+import FakeCepProvider from '@modules/cep/providers/CepProvider/fakes/FakeCepProvider';
+import FakeCepsRepository from '@modules/cep/repositories/fakes/FakeCepsRepository';
 import RegisterCepService from '@modules/cep/services/RegisterCepService';
 import FakeDoctorsRepostiory from '@modules/doctors/repositories/fakes/FakeDoctorsRepository';
 import Doctor from '@modules/doctors/infra/typeorm/entities/Doctor';
-import FakeSpecialtiesRepository from '@modules/specialties/repositories/Fakes/FakeSpecialtiesRepository';
-import CreateDoctorService from '../CreateDoctorService';
-import FilterDoctorService from '../FilterDoctorService';
-import FindByDoctorIdService from '../FindDoctorByIdService';
-import FindDoctorByCrmService from '../FindDoctorByCrmService';
-import FindDoctorByCellPhoneService from '../FindDoctorByCellPhoneService';
-import FindDoctorByLandLineService from '../FindDoctorByLandlineService';
+import FakeSpecialtiesRepository from '@modules/specialties/repositories/fakes/FakeSpecialtiesRepository';
+import CreateDoctorService from '@modules/doctors/services/CreateDoctorService';
+import FilterDoctorService from '@modules/doctors/services/FilterDoctorService';
+import FindByDoctorIdService from '@modules/doctors/services/FindDoctorByIdService';
+import FindDoctorByCrmService from '@modules/doctors/services/FindDoctorByCrmService';
+import FindDoctorByCellPhoneService from '@modules/doctors/services/FindDoctorByCellPhoneService';
+import FindDoctorByLandLineService from '@modules/doctors/services/FindDoctorByLandlineService';
 
 let fakeCepProvider: FakeCepProvider;
 

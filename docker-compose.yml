@@ -13,5 +13,17 @@ services:
         volumes:
             - postgres-data:/data
 
+    testPostgres:
+        image: 'postgres:13.2-alpine'
+        container_name: 'testPostgres'
+        environment:
+            POSTGRES_USER: 'postgres'
+            POSTGRES_PASSWORD: 'docker'
+            POSTGRES_DB: 'tests_backend_test'
+        ports:
+            - 5431:5432
+        volumes:
+            - postgres-data:/data
+
 volumes:
     postgres-data:

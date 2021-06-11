@@ -1,13 +1,13 @@
 import faker from 'faker';
-import FakeCepProvider from '@modules/cep/providers/CepProvider/Fakes/FakeCepProvider';
-import FakeCepsRepository from '@modules/cep/repositories/Fakes/FakeCepsRepository';
+import FakeCepProvider from '@modules/cep/providers/CepProvider/fakes/FakeCepProvider';
+import FakeCepsRepository from '@modules/cep/repositories/fakes/FakeCepsRepository';
 import RegisterCepService from '@modules/cep/services/RegisterCepService';
 import FakeDoctorsRepostiory from '@modules/doctors/repositories/fakes/FakeDoctorsRepository';
 import Doctor from '@modules/doctors/infra/typeorm/entities/Doctor';
-import FakeSpecialtiesRepository from '@modules/specialties/repositories/Fakes/FakeSpecialtiesRepository';
+import FakeSpecialtiesRepository from '@modules/specialties/repositories/fakes/FakeSpecialtiesRepository';
 import AppError from '@shared/errors/AppError';
-import CreateDoctorService from '../CreateDoctorService';
-import UpdateDoctorService from '../UpdateDoctorService';
+import CreateDoctorService from '@modules/doctors/services/CreateDoctorService';
+import UpdateDoctorService from '@modules/doctors/services/UpdateDoctorService';
 
 let fakeCepProvider: FakeCepProvider;
 

@@ -1,6 +1,6 @@
 import RegisterCepService from '@modules/cep/services/RegisterCepService';
-import FakeCepsRepository from '@modules/cep/repositories/Fakes/FakeCepsRepository';
-import FakeCepProvider from '@modules/cep/providers/CepProvider/Fakes/FakeCepProvider';
+import FakeCepsRepository from '@modules/cep/repositories/fakes/FakeCepsRepository';
+import FakeCepProvider from '@modules/cep/providers/CepProvider/fakes/FakeCepProvider';
 import AppError from '@shared/errors/AppError';
 
 let fakeCepsRepository: FakeCepsRepository;

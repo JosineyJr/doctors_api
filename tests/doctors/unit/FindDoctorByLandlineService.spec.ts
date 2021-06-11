@@ -1,13 +1,12 @@
 import faker from 'faker';
-import FakeCepProvider from '@modules/cep/providers/CepProvider/Fakes/FakeCepProvider';
-import FakeCepsRepository from '@modules/cep/repositories/Fakes/FakeCepsRepository';
+import FakeCepProvider from '@modules/cep/providers/CepProvider/fakes/FakeCepProvider';
+import FakeCepsRepository from '@modules/cep/repositories/fakes/FakeCepsRepository';
 import RegisterCepService from '@modules/cep/services/RegisterCepService';
 import FakeDoctorsRepostiory from '@modules/doctors/repositories/fakes/FakeDoctorsRepository';
-import AppError from '@shared/errors/AppError';
 import Doctor from '@modules/doctors/infra/typeorm/entities/Doctor';
-import FakeSpecialtiesRepository from '@modules/specialties/repositories/Fakes/FakeSpecialtiesRepository';
-import CreateDoctorService from '../CreateDoctorService';
-import FindDoctorByCellPhoneService from '../FindDoctorByCellPhoneService';
+import FakeSpecialtiesRepository from '@modules/specialties/repositories/fakes/FakeSpecialtiesRepository';
+import CreateDoctorService from '@modules/doctors/services/CreateDoctorService';
+import FindDoctorByLandLineService from '@modules/doctors/services/FindDoctorByLandlineService';
 
 let fakeDoctorsRepository: FakeDoctorsRepostiory;
 let fakeSpecialtiesRepository: FakeSpecialtiesRepository;
@@ -17,11 +16,11 @@ let fakeCepProvider: FakeCepProvider;
 
 let createDoctorService: CreateDoctorService;
 let registerCepService: RegisterCepService;
-let findDoctorByCellPhoneService: FindDoctorByCellPhoneService;
+let findDoctorByLandLineService: FindDoctorByLandLineService;
 
 let createdDoctor: Doctor;
 
-describe('FindDoctorByCellPhone', () => {
+describe('FindDoctorByLandlind', () => {
   beforeEach(async () => {
     fakeDoctorsRepository = new FakeDoctorsRepostiory();
     fakeSpecialtiesRepository = new FakeSpecialtiesRepository();
@@ -38,7 +37,7 @@ describe('FindDoctorByCellPhone', () => {
       fakeSpecialtiesRepository,
       registerCepService,
     );
-    findDoctorByCellPhoneService = new FindDoctorByCellPhoneService(
+    findDoctorByLandLineService = new FindDoctorByLandLineService(
       fakeDoctorsRepository,
     );
     createdDoctor = await createDoctorService.execute({
@@ -47,19 +46,19 @@ describe('FindDoctorByCellPhone', () => {
       crm: '1234567',
       name: faker.name.firstName(),
       specialties: ['Alergologia', 'Angiologia'],
-      landline: faker.phone.phoneNumber(),
+      landline: '3138242424',
     });
   });
-  it('should not be able to find the doctor by cell phone', async () => {
+  it('should not be able to find the doctor by land line', async () => {
     await expect(
-      findDoctorByCellPhoneService.execute('crm'),
-    ).rejects.toBeInstanceOf(AppError);
+      findDoctorByLandLineService.execute('land line'),
+    ).resolves.toEqual([]);
   });
-  it('should be able to find the doctor by cell phone', async () => {
-    const findById = await findDoctorByCellPhoneService.execute(
-      createdDoctor.cellPhone,
-    );
-    expect(findById.cep.cep).toEqual('35163143');
-    expect(findById.cellPhone).toEqual('31999999999');
+  it('should be able to find the doctor by land line', async () => {
+    const findById = (await findDoctorByLandLineService.execute(
+      createdDoctor.landline,
+    )) as Doctor[];
+    expect(findById[0].cep.cep).toEqual('35163143');
+    expect(findById[0].landline).toEqual('3138242424');
   });
 });

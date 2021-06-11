@@ -1,13 +1,13 @@
 import faker from 'faker';
-import FakeCepProvider from '@modules/cep/providers/CepProvider/Fakes/FakeCepProvider';
-import FakeCepsRepository from '@modules/cep/repositories/Fakes/FakeCepsRepository';
+import FakeCepProvider from '@modules/cep/providers/CepProvider/fakes/FakeCepProvider';
+import FakeCepsRepository from '@modules/cep/repositories/fakes/FakeCepsRepository';
 import RegisterCepService from '@modules/cep/services/RegisterCepService';
 import FakeDoctorsRepostiory from '@modules/doctors/repositories/fakes/FakeDoctorsRepository';
 import AppError from '@shared/errors/AppError';
 import Doctor from '@modules/doctors/infra/typeorm/entities/Doctor';
-import FakeSpecialtiesRepository from '@modules/specialties/repositories/Fakes/FakeSpecialtiesRepository';
-import CreateDoctorService from '../CreateDoctorService';
-import FindDoctorByIdService from '../FindDoctorByIdService';
+import FakeSpecialtiesRepository from '@modules/specialties/repositories/fakes/FakeSpecialtiesRepository';
+import CreateDoctorService from '@modules/doctors/services/CreateDoctorService';
+import FindDoctorByIdService from '@modules/doctors/services/FindDoctorByIdService';
 
 let fakeDoctorsRepository: FakeDoctorsRepostiory;
 let fakeSpecialtiesRepository: FakeSpecialtiesRepository;
@@ -40,7 +40,7 @@ describe('FindDoctorById', () => {
     );
     findDoctorByIdService = new FindDoctorByIdService(fakeDoctorsRepository);
     createdDoctor = await createDoctorService.execute({
-      cellPhone: faker.phone.phoneNumber(),
+      cellPhone: '3199999999',
       cep: '35163143',
       crm: '1234567',
       name: faker.name.firstName(),

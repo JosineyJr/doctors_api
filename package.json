@@ -5,9 +5,10 @@
   "license": "MIT",
   "scripts": {
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
-    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
-    "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
-    "test": "jest"
+    "dev": "cross-env NODE_ENV=DEV ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
+    "typeorm:dev": "cross-env NODE_ENV=DEV ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "typeorm:tests": "cross-env NODE_ENV=TEST ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "test": "cross-env NODE_ENV=TEST jest --passWithNoTests --runInBand --no-cache --forceExit --detectOpenHandles"
   },
   "config": {
     "commitizen": {
@@ -25,10 +26,12 @@
     "@types/express": "^4.17.12",
     "@types/jest": "^26.0.23",
     "@types/morgan": "^1.9.2",
+    "@types/supertest": "^2.0.11",
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.26.1",
     "@typescript-eslint/parser": "^4.26.1",
     "commitizen": "^4.2.4",
+    "cross-env": "^7.0.3",
     "eslint": "^7.16.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^7.1.0",
@@ -38,6 +41,7 @@
     "git-cz": "^4.7.6",
     "jest": "^27.0.4",
     "prettier": "^2.3.0",
+    "supertest": "^6.1.3",
     "ts-jest": "^27.0.3",
     "ts-node-dev": "^1.1.6",
     "tsconfig-paths": "^3.9.0",
@@ -49,6 +53,7 @@
     "axios": "^0.21.1",
     "celebrate": "^14.0.0",
     "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "faker": "^5.5.3",

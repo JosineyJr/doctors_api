@@ -1,11 +1,11 @@
 import faker from 'faker';
-import FakeCepProvider from '@modules/cep/providers/CepProvider/Fakes/FakeCepProvider';
-import FakeCepsRepository from '@modules/cep/repositories/Fakes/FakeCepsRepository';
+import FakeCepProvider from '@modules/cep/providers/CepProvider/fakes/FakeCepProvider';
+import FakeCepsRepository from '@modules/cep/repositories/fakes/FakeCepsRepository';
 import RegisterCepService from '@modules/cep/services/RegisterCepService';
 import FakeDoctorsRepostiory from '@modules/doctors/repositories/fakes/FakeDoctorsRepository';
-import FakeSpecialtiesRepository from '@modules/specialties/repositories/Fakes/FakeSpecialtiesRepository';
+import FakeSpecialtiesRepository from '@modules/specialties/repositories/fakes/FakeSpecialtiesRepository';
 import AppError from '@shared/errors/AppError';
-import CreateDoctorService from '../CreateDoctorService';
+import CreateDoctorService from '@modules/doctors/services/CreateDoctorService';
 
 let fakeCepProvider: FakeCepProvider;
 
@@ -84,21 +84,21 @@ describe('CreateDoctor', () => {
   });
   it('should not be able to create a new doctor with a crm that has already been registered', async () => {
     await createDoctorService.execute({
-      cellPhone: faker.phone.phoneNumber(),
+      cellPhone: '31999999999',
       cep: '35163143',
       crm: '1234567',
       name: faker.name.firstName(),
       specialties: ['Alergologia', 'Angiologia'],
-      landline: faker.phone.phoneNumber(),
+      landline: '313824242424',
     });
     await expect(
       createDoctorService.execute({
-        cellPhone: faker.phone.phoneNumber(),
+        cellPhone: '31999999999',
         cep: '60331400',
         crm: '1234567',
         name: faker.name.firstName(),
         specialties: ['Alergologia', 'Buco maxilo'],
-        landline: faker.phone.phoneNumber(),
+        landline: '313824242424',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -109,7 +109,7 @@ describe('CreateDoctor', () => {
       crm: '1234567',
       name: faker.name.firstName(),
       specialties: ['Alergologia', 'Angiologia'],
-      landline: faker.phone.phoneNumber(),
+      landline: '313824242424',
     });
     await expect(
       createDoctorService.execute({
@@ -118,18 +118,18 @@ describe('CreateDoctor', () => {
         crm: '1234561',
         name: faker.name.firstName(),
         specialties: ['Alergologia', 'Buco maxilo'],
-        landline: faker.phone.phoneNumber(),
+        landline: '313824242424',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
   it('should be able to create a new doctor with a new cep', async () => {
     const createdDoctor = await createDoctorService.execute({
-      cellPhone: faker.phone.phoneNumber(),
+      cellPhone: '3199999999',
       cep: '35163143',
       crm: '1234567',
       name: faker.name.firstName(),
       specialties: ['Alergologia', 'Angiologia'],
-      landline: faker.phone.phoneNumber(),
+      landline: '313824242424',
     });
     expect(createdDoctor).toHaveProperty('id');
     expect(createdDoctor.cep).toHaveProperty('id');
@@ -138,20 +138,20 @@ describe('CreateDoctor', () => {
   });
   it('should be able to create a new doctor with a registered cep', async () => {
     const doctorCep = await createDoctorService.execute({
-      cellPhone: faker.phone.phoneNumber(),
+      cellPhone: '3199999998',
       cep: '35163143',
       crm: '1234567',
       name: faker.name.firstName(),
       specialties: ['Alergologia', 'Angiologia'],
-      landline: faker.phone.phoneNumber(),
+      landline: '313824242424',
     });
     const createdDoctor = await createDoctorService.execute({
-      cellPhone: faker.phone.phoneNumber(),
+      cellPhone: '3199999999',
       cep: '35163143',
       crm: '1234561',
       name: faker.name.firstName(),
       specialties: ['Alergologia', 'Buco maxilo'],
-      landline: faker.phone.phoneNumber(),
+      landline: '313824242424',
     });
     expect(createdDoctor).toHaveProperty('id');
     expect(createdDoctor.cep).toHaveProperty('id');

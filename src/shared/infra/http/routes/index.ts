@@ -5,8 +5,8 @@ import specialtiesRoutes from '@modules/specialties/infra/http/routes/specialtie
 
 const routes = Router();
 
-routes.use('/doctor', doctorsRoutes);
+routes.use('/doctors', doctorsRoutes);
 routes.use('/cep', cepsRoutes);
-routes.use('/specialty', specialtiesRoutes);
+routes.use('/specialties', specialtiesRoutes);
 
 export default routes;

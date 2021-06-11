@@ -12,7 +12,7 @@ class CepProvider implements ICepProvider {
     const { data } = await this.api.get(`${cep}/json`);
 
     if (data.erro) {
-      throw new AppError('Cep does not exist', 401);
+      throw new AppError('Cep does not exist');
     }
 
     return data as IRegisterCepDTO;

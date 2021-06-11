@@ -47,7 +47,7 @@ class FakeCepsRepository implements ICepsRepository {
     return this.ceps[cepIndexFound];
   }
 
-  public async list(): Promise<Cep[]> {
+  public async listAll(): Promise<Cep[]> {
     return [...this.ceps];
   }
 

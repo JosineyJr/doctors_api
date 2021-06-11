@@ -1,9 +1,16 @@
-import { Request, Response, Router } from 'express';
+import { Router } from 'express';
+import { Joi, celebrate, Segments } from 'celebrate';
+import SpecialtiesController from '@modules/specialties/infra/http/controller/SpecialtiesController';
 
 const specialtiesRoutes = Router();
+const specialtyController = new SpecialtiesController();
 
-specialtiesRoutes.get('/', (request: Request, response: Response) => {
-  return response.send({ message: 'specialty working' });
-});
+specialtiesRoutes.post(
+  '/',
+  celebrate({ [Segments.BODY]: { name: Joi.string().required() } }),
+  specialtyController.create,
+);
+
+specialtiesRoutes.get('/', specialtyController.show);
 
 export default specialtiesRoutes;

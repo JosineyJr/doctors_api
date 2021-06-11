@@ -56,7 +56,7 @@ class CepsRepository implements ICepsRepository {
     return cepFound;
   }
 
-  public async list(): Promise<Cep[]> {
+  public async listAll(): Promise<Cep[]> {
     return this.ormRepository.find({});
   }
 }

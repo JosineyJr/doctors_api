@@ -94,7 +94,7 @@ class FakeSpecialtiesRepository implements ISpecialtiesRepository {
     return specialtiesFound;
   }
 
-  public async list(): Promise<Specialty[]> {
+  public async listAll(): Promise<Specialty[]> {
     return [...this.specialties];
   }
 }

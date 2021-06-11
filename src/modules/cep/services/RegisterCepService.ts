@@ -17,9 +17,7 @@ class RegisterCepService {
   public async execute(cep: string): Promise<Cep> {
     if (!valitions.cep.test(cep)) throw new AppError('Invalid cep format', 401);
 
-    const allCep = await this.cepsRepository.list();
-
-    const cepFound = allCep.find(findCep => findCep.cep === cep);
+    const cepFound = await this.cepsRepository.findByCep(cep);
 
     if (!cepFound) {
       const cepData = await this.cepProvider.getAddress(cep);

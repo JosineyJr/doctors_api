@@ -26,18 +26,21 @@ class CreateDoctorService {
     landline,
   }: ICreateDoctorDTO): Promise<Doctor> {
     if (specialties.length < 2)
-      throw new AppError('Doctors must have at least 2 specialties', 401);
+      throw new AppError('Doctors must have at least 2 specialties');
 
     const checkDoctorExists = await this.doctorsRepository.findByCrm(crm);
 
     if (checkDoctorExists)
-      throw new AppError('Crm has already been registered', 401);
+      throw new AppError('Crm has already been registered');
 
     const checkCellPhoneRegistered =
       await this.doctorsRepository.findByCellPhone(cellPhone);
 
     if (checkCellPhoneRegistered)
-      throw new AppError('Cell phone has already been registered', 401);
+      throw new AppError('Cell phone has already been registered');
+
+    if (Number(cellPhone.charAt(2)) < 6)
+      throw new AppError('Invalid cell phone format');
 
     const cepData = await this.registerCepService.execute(cep);
 
@@ -46,7 +49,7 @@ class CreateDoctorService {
     );
 
     if (specialtiesFound.length !== specialties.length)
-      throw new AppError('The doctor`s specialties are not in database', 401);
+      throw new AppError('The doctor`s specialties are not in database');
 
     const createdDoctor = await this.doctorsRepository.create({
       cellPhone,

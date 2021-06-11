@@ -28,7 +28,7 @@ doctorsRoutes.get(
   '/:param',
   celebrate({
     [Segments.PARAMS]: {
-      param: Joi.string().required(),
+      param: Joi.string().min(7).required(),
     },
   }),
   doctorsController.index,

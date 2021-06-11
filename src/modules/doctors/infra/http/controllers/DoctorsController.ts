@@ -4,6 +4,7 @@ import ListAllDoctorsService from '@modules/doctors/services/ListAllDoctorsServi
 import UpdateDoctorService from '@modules/doctors/services/UpdateDoctorService';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+import Doctor from '@modules/doctors/infra/typeorm/entities/Doctor';
 
 class DoctorsController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -30,7 +31,7 @@ class DoctorsController {
 
     const filteredDoctor = await filterDoctorService.execute(param);
 
-    return response.json({ doctor: filteredDoctor });
+    return response.json({ doctors: filteredDoctor });
   }
 
   public async show(request: Request, response: Response): Promise<Response> {

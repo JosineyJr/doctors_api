@@ -12,5 +12,5 @@ export default interface ISpecialtiesRepository {
 
   findSpecialties(names: string[]): Promise<Specialty[]>;
 
-  list(): Promise<Specialty[]>;
+  listAll(): Promise<Specialty[]>;
 }

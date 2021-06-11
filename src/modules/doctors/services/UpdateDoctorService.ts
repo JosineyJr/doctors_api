@@ -28,27 +28,26 @@ class UpdateDoctorService {
   }: IUpdateDoctorDTO): Promise<Doctor> {
     const doctorFound = await this.doctorsRepository.findById(id);
 
-    if (!doctorFound) throw new AppError('Doctor has not registered yet', 401);
+    if (!doctorFound) throw new AppError('Doctor has not registered yet');
 
     if (crm) {
       const checkCrmExists = await this.doctorsRepository.findByCrm(crm);
 
-      if (checkCrmExists)
-        throw new AppError('Crm has already been registered', 401);
+      if (checkCrmExists) throw new AppError('Crm has already been registered');
 
       doctorFound.crm = crm;
     }
 
     if (specialties) {
       if (specialties.length < 2)
-        throw new AppError('Doctors must have at least 2 specialties', 401);
+        throw new AppError('Doctors must have at least 2 specialties');
 
       const specialtiesFound = await this.specialtiesRepository.findSpecialties(
         specialties,
       );
 
       if (specialtiesFound.length !== specialties.length)
-        throw new AppError('The doctor`s specialties are not in database', 401);
+        throw new AppError('The doctor`s specialties are not in database');
 
       doctorFound.specialties = specialtiesFound;
     }
@@ -58,7 +57,7 @@ class UpdateDoctorService {
         await this.doctorsRepository.findByCellPhone(cellPhone);
 
       if (checkCellPhoneRegistered)
-        throw new AppError('Cell phone has already been registered', 401);
+        throw new AppError('Cell phone has already been registered');
 
       doctorFound.cellPhone = cellPhone;
     }
