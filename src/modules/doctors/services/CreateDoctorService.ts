@@ -33,6 +33,12 @@ class CreateDoctorService {
     if (checkDoctorExists)
       throw new AppError('Crm has already been registered', 401);
 
+    const checkCellPhoneRegistered =
+      await this.doctorsRepository.findByCellPhone(cellPhone);
+
+    if (checkCellPhoneRegistered)
+      throw new AppError('Cell phone has already been registered', 401);
+
     const cepData = await this.registerCepService.execute(cep);
 
     const specialtiesFound = await this.specialtiesRepository.findSpecialties(
