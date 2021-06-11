@@ -7,6 +7,8 @@ export default interface IDoctorsRepository {
 
   save(doctor: Doctor): Promise<Doctor>;
 
+  delete(doctor: Doctor): Promise<void>;
+
   listAll(): Promise<Doctor[]>;
 
   findById(id: string): Promise<Doctor | undefined>;

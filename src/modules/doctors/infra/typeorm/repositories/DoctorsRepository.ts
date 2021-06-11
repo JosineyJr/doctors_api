@@ -68,6 +68,10 @@ class DoctorsRepository implements IDoctorsRepository {
     return this.ormRepository.save(doctor);
   }
 
+  public async delete(doctor: Doctor): Promise<void> {
+    await this.ormRepository.softRemove(doctor);
+  }
+
   public async listAll(): Promise<Doctor[]> {
     const allDoctors = await this.findDoctorsWithCepAndSpecialties('', {});
 
