@@ -123,7 +123,7 @@ describe('CreateDoctor', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
   it('should be able to create a new doctor with a new cep', async () => {
-    const doctorCreated = await createDoctorService.execute({
+    const createdDoctor = await createDoctorService.execute({
       cellPhone: faker.phone.phoneNumber(),
       cep: '35163143',
       crm: '1234567',
@@ -131,10 +131,10 @@ describe('CreateDoctor', () => {
       specialties: ['Alergologia', 'Angiologia'],
       landline: faker.phone.phoneNumber(),
     });
-    expect(doctorCreated).toHaveProperty('id');
-    expect(doctorCreated.cep).toHaveProperty('id');
-    expect(doctorCreated.specialties[0]).toHaveProperty('id');
-    expect(doctorCreated.specialties[1]).toHaveProperty('id');
+    expect(createdDoctor).toHaveProperty('id');
+    expect(createdDoctor.cep).toHaveProperty('id');
+    expect(createdDoctor.specialties[0]).toHaveProperty('id');
+    expect(createdDoctor.specialties[1]).toHaveProperty('id');
   });
   it('should be able to create a new doctor with a registered cep', async () => {
     const doctorCep = await createDoctorService.execute({
@@ -145,7 +145,7 @@ describe('CreateDoctor', () => {
       specialties: ['Alergologia', 'Angiologia'],
       landline: faker.phone.phoneNumber(),
     });
-    const doctorCreated = await createDoctorService.execute({
+    const createdDoctor = await createDoctorService.execute({
       cellPhone: faker.phone.phoneNumber(),
       cep: '35163143',
       crm: '1234561',
@@ -153,10 +153,10 @@ describe('CreateDoctor', () => {
       specialties: ['Alergologia', 'Buco maxilo'],
       landline: faker.phone.phoneNumber(),
     });
-    expect(doctorCreated).toHaveProperty('id');
-    expect(doctorCreated.cep).toHaveProperty('id');
-    expect(doctorCreated.cep).toEqual(doctorCep.cep);
-    expect(doctorCreated.specialties[0]).toHaveProperty('id');
-    expect(doctorCreated.specialties[1]).toHaveProperty('id');
+    expect(createdDoctor).toHaveProperty('id');
+    expect(createdDoctor.cep).toHaveProperty('id');
+    expect(createdDoctor.cep).toEqual(doctorCep.cep);
+    expect(createdDoctor.specialties[0]).toHaveProperty('id');
+    expect(createdDoctor.specialties[1]).toHaveProperty('id');
   });
 });
