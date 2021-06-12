@@ -86,7 +86,29 @@ class DoctorsRepository implements IDoctorsRepository {
     const doctorFound = await this.ormRepository
       .createQueryBuilder('doctor')
       .where('doctor.id = :id', { id })
+      .leftJoinAndSelect('doctor.cep', 'cep')
+      .leftJoinAndSelect('doctor.specialties', 'specialties')
       .withDeleted()
+      .select([
+        'doctor.id',
+        'doctor.name',
+        'doctor.crm',
+        'doctor.landline',
+        'doctor.cellPhone',
+        'cep.id',
+        'cep.cep',
+        'cep.street',
+        'cep.complement',
+        'cep.district',
+        'cep.city',
+        'cep.uf',
+        'cep.ddd',
+        'cep.ibge',
+        'cep.gia',
+        'cep.siafi',
+        'specialties.id',
+        'specialties.name',
+      ])
       .getOne();
 
     return doctorFound;
