@@ -50,6 +50,11 @@ export default class CreateDoctors1623192248873 implements MigrationInterface {
             type: 'timestamp',
             default: 'now()',
           },
+          {
+            name: 'deleted_at',
+            type: 'timestamp',
+            isNullable: true,
+          },
         ],
         foreignKeys: [
           new TableForeignKey({
