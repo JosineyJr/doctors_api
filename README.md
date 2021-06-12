@@ -96,15 +96,17 @@ src/
  |       └─ typeorm/
  |          └─ migrations/
 tests/
- ├─ cep/
- |   ├─ integration/
- |   └─ unit/
- ├─ doctors/
- |   ├─ integration/
- |   └─ unit/
- ├─ specialties/
- |   ├─ integration/
- |   └─ unit/
+ ├─ modules/
+ |   ├─ cep/
+ |   |  ├─ integration/
+ |   |  └─ unit/
+ |   ├─ doctors/
+ |   |  ├─ integration/
+ |   |  └─ unit/
+ |   ├─ specialties/
+ |   |  ├─ integration/
+ |   |  └─ unit/
+ ├─ utils/
  └─ package.json
 ```
 
