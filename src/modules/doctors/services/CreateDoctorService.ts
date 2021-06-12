@@ -28,6 +28,9 @@ class CreateDoctorService {
     if (specialties.length < 2)
       throw new AppError('Doctors must have at least 2 specialties');
 
+    if (name.length > 120)
+      throw new AppError('Name exceeds maximum characters');
+
     const checkDoctorExists = await this.doctorsRepository.findByCrm(crm);
 
     if (checkDoctorExists)
