@@ -3,6 +3,7 @@ import Specialty from '@modules/specialties/infra/typeorm/entities/Specialty';
 import {
   Column,
   CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   JoinTable,
   ManyToMany,
@@ -46,6 +47,9 @@ class Doctor {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @DeleteDateColumn()
+  deleted_at?: Date;
 }
 
 export default Doctor;
