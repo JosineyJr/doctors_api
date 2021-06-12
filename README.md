@@ -112,11 +112,11 @@ tests/
 - **config**: Dir com a configuração de autenticação com JWT.
 - **modules**: Dir com a implementação de todos os módulos da aplicação separados entre si.
 - **shared**: Dir com a implementação de todas as rotas da api e tudo o que é compartilhado entre os módulos.
-- **test**: Dir com todos os testes unitários.
+- **tests**: Dir com todos os testes integrados e unitários de cada módulo.
 
 ### Documentação
 
-Após iniciar a aplicação, a documentação de toda a api estará disponível a partir do endereço <http://localhost:3031/docs-api>.
+Após iniciar a aplicação, a documentação de toda a api estará disponível a partir do endereço <http://localhost:3031/api-docs>.
 
 ### Testes
 
