@@ -129,6 +129,8 @@ Para executar os testes unitários e de integração execute o seguinte comando:
 ```sh
 make run-tests
 ```
+> O comando `run-tests` executa o serviço `tests` do [docker-compose](./docker-compose.yml), que baixa a imagem do _postgres_, executa as migrations, builda o dockerfile do projeto e executa todos os testes da aplicação.
+>
 
 #### Resultado
 
