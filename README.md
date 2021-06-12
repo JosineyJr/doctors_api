@@ -63,7 +63,6 @@ src/
  |   |   ├─ repositories/
  |   |   |  |  └─ fakes/
  |   |   └─ services/
- |   |      |  └─ test/
  |   ├─ doctors/
  |   |   ├─ dtos/
  |   |   ├─ infra/
@@ -76,7 +75,6 @@ src/
  |   |   ├─ repositories/
  |   |   |  |  └─ fakes/
  |   |   └─ services/
- |   |      |  └─ test/
  |   ├─ specialties/
  |   |   ├─ dtos/
  |   |   ├─ infra/
@@ -89,7 +87,6 @@ src/
  |   |   ├─ repositories/
  |   |   |  |  └─ fakes/
  |   |   └─ services/
- |   |      |  └─ test/
  ├─ shared/
  |   ├─ container/
  |   ├─ errors/
@@ -98,6 +95,16 @@ src/
  |       |  └─ routes/
  |       └─ typeorm/
  |          └─ migrations/
+tests/
+ ├─ cep/
+ |   ├─ integration/
+ |   └─ unit/
+ ├─ doctors/
+ |   ├─ integration/
+ |   └─ unit/
+ ├─ specialties/
+ |   ├─ integration/
+ |   └─ unit/
  └─ package.json
 ```
 
