@@ -72,10 +72,34 @@ class DoctorsRepository implements IDoctorsRepository {
     await this.ormRepository.softRemove(doctor);
   }
 
+  public async recover(doctor: Doctor): Promise<Doctor> {
+    return this.ormRepository.recover(doctor);
+  }
+
   public async listAll(): Promise<Doctor[]> {
     const allDoctors = await this.findDoctorsWithCepAndSpecialties('', {});
 
     return allDoctors.getMany();
+  }
+
+  public async findDeleted(id: string): Promise<Doctor | undefined> {
+    const doctorFound = await this.ormRepository
+      .createQueryBuilder('doctor')
+      .where('doctor.id = :id', { id })
+      .withDeleted()
+      .getOne();
+
+    return doctorFound;
+  }
+
+  public async findAllDeleted(): Promise<Doctor[]> {
+    const doctorsFound = await this.ormRepository
+      .createQueryBuilder('doctor')
+      .select('*')
+      .withDeleted()
+      .getMany();
+
+    return doctorsFound;
   }
 
   public async findById(id: string): Promise<Doctor | undefined> {
