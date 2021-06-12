@@ -1,7 +1,7 @@
 import FakeCepsRepository from '@modules/cep/repositories/fakes/FakeCepsRepository';
 import FakeCepProvider from '@modules/cep/providers/CepProvider/fakes/FakeCepProvider';
-import RegisterCepService from '../../../src/modules/cep/services/RegisterCepService';
-import ListAllCepsService from '../../../src/modules/cep/services/ListAllCepsService';
+import RegisterCepService from '@modules/cep/services/RegisterCepService';
+import ListAllCepsService from '@modules/cep/services/ListAllCepsService';
 
 let fakeCepsRepository: FakeCepsRepository;
 

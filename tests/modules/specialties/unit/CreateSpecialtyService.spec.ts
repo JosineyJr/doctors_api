@@ -1,6 +1,6 @@
 import FakeSpecialtiesRepository from '@modules/specialties/repositories/fakes/FakeSpecialtiesRepository';
 import CreateSpecialtyService from '@modules/specialties/services/CreateSpecialtyService';
-import AppError from '../../../src/shared/errors/AppError';
+import AppError from '@shared/errors/AppError';
 
 let fakeSpecialtiesRepository: FakeSpecialtiesRepository;
 

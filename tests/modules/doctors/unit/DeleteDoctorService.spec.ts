@@ -6,8 +6,8 @@ import FakeDoctorsRepostiory from '@modules/doctors/repositories/fakes/FakeDocto
 import FakeSpecialtiesRepository from '@modules/specialties/repositories/fakes/FakeSpecialtiesRepository';
 import CreateDoctorService from '@modules/doctors/services/CreateDoctorService';
 import DeleteDoctorService from '@modules/doctors/services/DeleteDoctorService';
-import AppError from '../../../src/shared/errors/AppError';
-import FindDoctorByIdService from '../../../src/modules/doctors/services/FindDoctorByIdService';
+import AppError from '@shared/errors/AppError';
+import FindDoctorByIdService from '@modules/doctors/services/FindDoctorByIdService';
 
 let fakeCepProvider: FakeCepProvider;
 

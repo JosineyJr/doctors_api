@@ -1,7 +1,7 @@
 import { Connection, createConnection } from 'typeorm';
 import faker from 'faker';
 import request from 'supertest';
-import app from '../../../src/shared/infra/http/app';
+import app from '@shared/infra/http/app';
 
 let connection: Connection;
 

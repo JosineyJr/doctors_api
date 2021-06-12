@@ -6,6 +6,7 @@ import FakeDoctorsRepostiory from '@modules/doctors/repositories/fakes/FakeDocto
 import FakeSpecialtiesRepository from '@modules/specialties/repositories/fakes/FakeSpecialtiesRepository';
 import AppError from '@shared/errors/AppError';
 import CreateDoctorService from '@modules/doctors/services/CreateDoctorService';
+import exceedCharName from '../../../utils/exceedCharName';
 
 let fakeCepProvider: FakeCepProvider;
 
@@ -33,6 +34,18 @@ describe('CreateDoctor', () => {
       fakeSpecialtiesRepository,
       registerCepService,
     );
+  });
+  it('should not be able to create a new doctor whose name exceeded the maximum characters', async () => {
+    await expect(
+      createDoctorService.execute({
+        cellPhone: '31999999999',
+        cep: '35163143',
+        crm: '1234567',
+        name: exceedCharName(),
+        specialties: ['Alergologia', 'Angiologia'],
+        landline: '3138242424',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
   });
   it('should not be able to create a new doctor who has less than  two specialties', async () => {
     await expect(
