@@ -85,6 +85,57 @@
         }
       }
     },
+    "/doctors/{filter}": {
+      "get": {
+        "tags": ["Doctor"],
+        "summary": "Filter doctor by crm, id, cell phone or landline",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "filter",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "crm, id, cell phone or landline"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Doctors found successfully"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/doctors/recover/{id}": {
+      "get": {
+        "tags": ["Doctor"],
+        "summary": "Recover a deleted Doctor",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "crm, id, cell phone or landline"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Doctors found successfully"
+          },
+          "400": { "description": "Bad Request error" },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/doctors/{id}": {
       "put": {
         "tags": ["Doctor"],
@@ -173,57 +224,6 @@
         "responses": {
           "204": {
             "description": "Doctors deleted"
-          },
-          "400": { "description": "Bad Request error" },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/doctors/{filter}": {
-      "get": {
-        "tags": ["Doctor"],
-        "summary": "Filter doctor by crm, id, cell phone or landline",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "filter",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "crm, id, cell phone or landline"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Doctors found successfully"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/doctors/recover/{id}": {
-      "get": {
-        "tags": ["Doctor"],
-        "summary": "Recover a deleted Doctor",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "crm, id, cell phone or landline"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Doctors found successfully"
           },
           "400": { "description": "Bad Request error" },
           "500": {
