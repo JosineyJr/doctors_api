@@ -124,20 +124,26 @@ describe('GET /doctor', () => {
 
     expect(Array.isArray([body.doctors])).toBeTruthy();
     expect(body.doctors).toHaveLength(2);
-    expect(body.doctors[0].cellPhone).toEqual(doctor2.cellPhone);
-    expect(body.doctors[0].name).toEqual(doctor2.name);
-    expect(body.doctors[0].crm).toEqual(doctor2.crm);
-    expect(body.doctors[0].cep.cep).toEqual(doctor2.cep);
-    expect(body.doctors[0].specialties).toHaveLength(2);
-    expect(body.doctors[0].specialties[1].name).toEqual(doctor2.specialties[0]);
-    expect(body.doctors[0].specialties[0].name).toEqual(doctor2.specialties[1]);
+  });
+  it('should be able to recover a deleted doctor', async () => {
+    const doctor = {
+      name: faker.name.firstName(),
+      crm: '1214580',
+      cellPhone: '31999939982',
+      cep: '35163143',
+      landline: '3138242424',
+      specialties: ['Buco maxilo', 'Cardiologia infantil'],
+    };
 
-    expect(body.doctors[1].cellPhone).toEqual(doctor1.cellPhone);
-    expect(body.doctors[1].name).toEqual(doctor1.name);
-    expect(body.doctors[1].crm).toEqual(doctor1.crm);
-    expect(body.doctors[1].cep.cep).toEqual(doctor1.cep);
-    expect(body.doctors[1].specialties).toHaveLength(2);
-    expect(body.doctors[1].specialties[0].name).toEqual(doctor1.specialties[0]);
-    expect(body.doctors[1].specialties[1].name).toEqual(doctor1.specialties[1]);
+    const result = await request(app).post('/doctors').send(doctor).expect(201);
+
+    await request(app).delete(`/doctors/${result.body.doctor.id}`).expect(204);
+
+    const { body } = await request(app)
+      .get(`/doctors/recover/${result.body.doctor.id}`)
+      .expect(200);
+
+    expect(body.doctor).toHaveProperty('id');
+    expect(body.doctor.id).toEqual(result.body.doctor.id);
   });
 });
