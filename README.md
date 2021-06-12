@@ -113,7 +113,7 @@ Após iniciar a aplicação, a documentação de toda a api estará disponível 
 
 ### Testes
 
-Os testes foram divididos em unitários e integração a fim de garantir a maior cobertura de código no máximo de camadas possíveis. Os testes foram feitos utilzando o [Jest](https://www.npmjs.com/package/jest) e [Faker](https://www.npmjs.com/package/faker)
+Os testes foram divididos em unitários e integração a fim de garantir a maior cobertura de código no máximo de camadas possíveis. Os testes foram feitos utilzando o [Jest](https://www.npmjs.com/package/jest), [SuperTest](https://www.npmjs.com/package/supertest) e [Faker](https://www.npmjs.com/package/faker)
 
 #### Executando os testes
 
