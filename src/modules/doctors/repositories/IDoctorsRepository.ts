@@ -9,9 +9,13 @@ export default interface IDoctorsRepository {
 
   delete(doctor: Doctor): Promise<void>;
 
+  recover(doctor: Doctor): Promise<Doctor>;
+
   listAll(): Promise<Doctor[]>;
 
   findById(id: string): Promise<Doctor | undefined>;
+
+  findDeleted(id: string): Promise<Doctor | undefined>;
 
   findByCrm(crm: string): Promise<Doctor | undefined>;
 
