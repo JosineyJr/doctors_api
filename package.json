@@ -6,8 +6,9 @@
   "scripts": {
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
     "dev": "cross-env NODE_ENV=DEV ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
+    "start:docker": "cross-env NODE_ENV=DEV node --trace-warnings ./dist/shared/infra/http/server.js",
     "typeorm:dev": "cross-env NODE_ENV=DEV ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
-    "typeorm:tests": "cross-env NODE_ENV=TEST ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "typeorm": "cross-env NODE_ENV=TEST ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "test": "cross-env NODE_ENV=TEST jest --passWithNoTests --runInBand --no-cache --forceExit --detectOpenHandles"
   },
   "config": {
@@ -30,6 +31,9 @@
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.26.1",
     "@typescript-eslint/parser": "^4.26.1",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "babel-plugin-transform-decorators": "^6.24.1",
+    "babel-plugin-transform-typescript-metadata": "^0.3.2",
     "commitizen": "^4.2.4",
     "cross-env": "^7.0.3",
     "eslint": "^7.16.0",

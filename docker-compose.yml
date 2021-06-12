@@ -1,29 +1,78 @@
-version: '3.8'
+version: '3'
 
 services:
-    postgres:
-        image: 'postgres:13.2-alpine'
-        container_name: 'postgres'
-        environment:
-            POSTGRES_USER: 'postgres'
-            POSTGRES_PASSWORD: 'docker'
-            POSTGRES_DB: 'backend_test'
-        ports:
-            - 5432:5432
-        volumes:
-            - postgres-data:/data
+  server:
+    build: .
+    container_name: server
+    command: sh -c "sleep 10s && yarn start:docker"
+    volumes:
+      - .:/home/node/api
+      - /home/node/api/node_modules
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+    depends_on:
+      - postgres
+      - migrations
+    networks:
+      - backend_test
 
-    testPostgres:
-        image: 'postgres:13.2-alpine'
-        container_name: 'testPostgres'
-        environment:
-            POSTGRES_USER: 'postgres'
-            POSTGRES_PASSWORD: 'docker'
-            POSTGRES_DB: 'tests_backend_test'
-        ports:
-            - 5431:5432
-        volumes:
-            - postgres-data:/data
+  tests:
+    build: .
+    container_name: tests
+    command: sh -c "sleep 10s && yarn test"
+    depends_on:
+      - postgres_to_test
+      - migrations_to_test
+    networks:
+      - tests_backend_test
+
+  postgres:
+      image: postgres:13.2-alpine
+      container_name: postgres
+      environment:
+          POSTGRES_USER: "postgres"
+          POSTGRES_PASSWORD: "docker"
+          POSTGRES_DB: "backend_test"
+      volumes:
+          - postgres-data:/data
+      networks:
+        - backend_test
+
+  postgres_to_test:
+      image: postgres:13.2-alpine
+      container_name: postgres_to_test
+      environment:
+          POSTGRES_USER: "postgres"
+          POSTGRES_PASSWORD: "docker"
+          POSTGRES_DB: "tests_backend_test"
+      volumes:
+          - postgres-data:/data
+      networks:
+        - tests_backend_test
+
+  migrations:
+    build: .
+    container_name: migrations
+    command: sh -c "dockerize -wait tcp://postgres:5432 -timeout 300s -wait-retry-interval 1s yarn typeorm:dev migration:run"
+    depends_on:
+      - postgres
+    networks:
+      - backend_test
+
+  migrations_to_test:
+    build: .
+    container_name: migrations_to_test
+    command: sh -c "dockerize -wait tcp://postgres:5431 -timeout 300s -wait-retry-interval 1s yarn typeorm migration:run"
+    depends_on:
+      - postgres_to_test
+    networks:
+      - tests_backend_test
 
 volumes:
-    postgres-data:
+  postgres-data:
+
+networks:
+  backend_test:
+    driver: bridge
+  tests_backend_test:
+    driver: bridge

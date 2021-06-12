@@ -12,14 +12,13 @@ import morgan from 'morgan';
 import routes from './routes';
 
 const app = express();
-const port = 3031;
 
 dotenv.config();
 
 app.use(cors());
 app.use(express.json());
 
-if (process.env.NODE_ENV !== 'test') {
+if (process.env.NODE_ENV !== 'TEST') {
   app.use(morgan('dev'));
 }
 

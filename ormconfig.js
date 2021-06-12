@@ -1,22 +1,18 @@
 require('dotenv/config');
 
-const dir =
-  process.env.NODE_ENV === 'DEV' || process.env.NODE_ENV === 'TEST'
-    ? 'src'
-    : 'dist';
-const file =
-  process.env.NODE_ENV === 'DEV' || process.env.NODE_ENV === 'TEST'
-    ? 'ts'
-    : 'js';
+const dir = process.env.NODE_ENV === 'TEST' ? 'src' : 'dist';
+const file = process.env.NODE_ENV === 'TEST' ? 'ts' : 'js';
 
 const database =
   process.env.NODE_ENV === 'TEST' ? 'tests_backend_test' : undefined;
 
-const port = process.env.NODE_ENV === 'TEST' ? 5431 : undefined;
+const port = process.env.NODE_ENV === 'TEST' ? 5432 : undefined;
 
-module.exports = {
+const host = process.env.NODE_ENV === 'TEST' ? 'postgres_to_test' : undefined;
+
+const config = {
   type: 'postgres',
-  host: process.env.POSTGRESQL_HOST,
+  host: host || process.env.POSTGRESQL_HOST,
   port: port || Number(process.env.POSTGRESQL_PORT),
   username: process.env.POSTGRESQL_USERNAME,
   password: process.env.POSTGRESQL_PASSWORD,
@@ -27,3 +23,5 @@ module.exports = {
     migrationsDir: `./${dir}/shared/infra/typeorm/migrations/`,
   },
 };
+
+module.exports = config;

@@ -1,9 +1,11 @@
-.PHONY: start-database start-testsDatabase
-start-database:
-	@docker-compose up -d postgres
+.PHONY: start-database start-app destroy run-tests destroy/start-app
+start-app:
+	@docker-compose up server
 
-start-testsDatabase:
-	@docker-compose up -d testPostgres
+run-tests:
+	@docker-compose up tests
 
 destroy:
 	@docker-compose down -v --rmi local
+
+destroy/start-app: destroy start-app
