@@ -4,7 +4,8 @@ import ListAllDoctorsService from '@modules/doctors/services/ListAllDoctorsServi
 import UpdateDoctorService from '@modules/doctors/services/UpdateDoctorService';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import Doctor from '@modules/doctors/infra/typeorm/entities/Doctor';
+import DeleDoctorService from '@modules/doctors/services/DeleteDoctorService';
+import RecoverDoctorService from '@modules/doctors/services/RecoverDoctorService';
 
 class DoctorsController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -60,6 +61,29 @@ class DoctorsController {
     });
 
     return response.json({ doctor: doctorUpdated });
+  }
+
+  public async delete(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
+
+    const deleteDoctorService = container.resolve(DeleDoctorService);
+
+    await deleteDoctorService.execute(id);
+
+    return response.status(204).json();
+  }
+
+  public async recover(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const { id } = request.params;
+
+    const recoverDoctorService = container.resolve(RecoverDoctorService);
+
+    const recoveredDoctor = await recoverDoctorService.execute(id);
+
+    return response.json({ doctor: recoveredDoctor });
   }
 }
 
