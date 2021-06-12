@@ -9,6 +9,9 @@ import '@shared/container';
 
 import cors from 'cors';
 import morgan from 'morgan';
+import swaggerUi from 'swagger-ui-express';
+import swaggerFile from './swagger.json';
+
 import routes from './routes';
 
 const app = express();
@@ -21,6 +24,8 @@ app.use(express.json());
 if (process.env.NODE_ENV !== 'TEST') {
   app.use(morgan('dev'));
 }
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.use(routes);
 

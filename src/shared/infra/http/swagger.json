@@ -1,0 +1,330 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "DEV",
+    "title": "Doctors api Documentation",
+    "description": "Doctors API\n",
+    "contact": {
+      "email": "josineyjunior14@gmail.com"
+    }
+  },
+  "paths": {
+    "/doctors": {
+      "post": {
+        "tags": ["Doctor"],
+        "summary": "Create a new doctor",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "crm": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "cep": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "cellPhone": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "landlinde": {
+                    "type": "string",
+                    "required": false
+                  },
+                  "specialties": {
+                    "type": "array",
+                    "minLength": 2,
+                    "items": {
+                      "type": "string"
+                    },
+                    "required": true
+                  }
+                },
+                "example": {
+                  "name": "Dr. John",
+                  "crm": "1234567",
+                  "cep": "35163143",
+                  "cellPhone": "31997014086",
+                  "landline": "3138242424",
+                  "specialties": ["Alergologia", "Cardiologia infantil"]
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Doctor created successfully"
+          },
+          "400": {
+            "description": "Bad Request error"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Doctor"],
+        "summary": "Get all registered doctors",
+        "responses": {
+          "200": {
+            "description": "Doctors found successfully"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/doctors/{id}": {
+      "put": {
+        "tags": ["Doctor"],
+        "summary": "Update doctor",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Doctor's id"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "required": false
+                  },
+                  "crm": {
+                    "type": "string",
+                    "required": false
+                  },
+                  "cep": {
+                    "type": "string",
+                    "required": false
+                  },
+                  "cellPhone": {
+                    "type": "string",
+                    "required": false
+                  },
+                  "landlinde": {
+                    "type": "string",
+                    "required": false
+                  },
+                  "specialties": {
+                    "type": "array",
+                    "minLength": 2,
+                    "items": {
+                      "type": "string"
+                    },
+                    "required": false
+                  }
+                },
+                "example": {
+                  "name": "Dr. Junin",
+                  "cellPhone": "31997014446",
+                  "specialties": ["Buco maxilo", "Cardiologia infantil"]
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Doctor updated successfully"
+          },
+          "400": {
+            "description": "Bad Request error"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Doctor"],
+        "summary": "Delete a doctor",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Doctor's id"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Doctors deleted"
+          },
+          "400": { "description": "Bad Request error" },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/doctors/{filter}": {
+      "get": {
+        "tags": ["Doctor"],
+        "summary": "Filter doctor by crm, id, cell phone or landline",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "filter",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "crm, id, cell phone or landline"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Doctors found successfully"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/doctors/recover/{id}": {
+      "get": {
+        "tags": ["Doctor"],
+        "summary": "Recover a deleted Doctor",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "crm, id, cell phone or landline"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Doctors found successfully"
+          },
+          "400": { "description": "Bad Request error" },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/cep": {
+      "post": {
+        "tags": ["Cep"],
+        "summary": "Register a cep",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "cep": {
+                    "type": "string",
+                    "required": true
+                  }
+                },
+                "example": {
+                  "cep": "35160207"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Cep registered successfully"
+            },
+            "400": {
+              "description": "Bad Request error"
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["Cep"],
+        "summary": "Get all registered ceps",
+        "responses": {
+          "200": {
+            "description": "Ceps found successfully"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/specialties": {
+      "post": {
+        "tags": ["Specialty"],
+        "summary": "Register a new specialty",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "required": true
+                  }
+                },
+                "example": {
+                  "cep": "Pediatria"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Specialty registered successfully"
+            },
+            "400": {
+              "description": "Bad Request error"
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["Specialty"],
+        "summary": "Get all registered specialty",
+        "responses": {
+          "200": {
+            "description": "Specialties found successfully"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  }
+}
