@@ -42,25 +42,68 @@ class FakeDoctorsRepostiory implements IDoctorsRepository {
     return this.doctors[doctorIndexFound];
   }
 
+  public async delete(doctor: Doctor): Promise<void> {
+    const doctorIndexFound = this.doctors.findIndex(
+      findDoctor => findDoctor.id === doctor.id,
+    );
+
+    this.doctors[doctorIndexFound].deleted_at = new Date();
+  }
+
+  public async recover(doctor: Doctor): Promise<Doctor> {
+    const doctorIndexFound = this.doctors.findIndex(
+      findDoctor => findDoctor.id === doctor.id,
+    );
+
+    this.doctors[doctorIndexFound].deleted_at = undefined;
+
+    return this.doctors[doctorIndexFound];
+  }
+
   public async listAll(): Promise<Doctor[]> {
-    return [...this.doctors];
+    const doctors = this.doctors.filter(
+      filterDoctor => !filterDoctor.deleted_at,
+    );
+
+    return [...doctors];
+  }
+
+  public async findDeleted(id: string): Promise<Doctor | undefined> {
+    const doctorFound = this.doctors.find(
+      findDoctor => findDoctor.id === id && findDoctor.deleted_at,
+    );
+
+    return doctorFound;
+  }
+
+  public async findAllDeleted(): Promise<Doctor[]> {
+    const doctorsFound = this.doctors.filter(
+      findDoctors => findDoctors.deleted_at,
+    );
+
+    return doctorsFound;
   }
 
   public async findById(id: string): Promise<Doctor | undefined> {
-    const doctorFound = this.doctors.find(findDoctor => findDoctor.id === id);
+    const doctorFound = this.doctors.find(
+      findDoctor => findDoctor.id === id && !findDoctor.deleted_at,
+    );
 
     return doctorFound;
   }
 
   public async findByCrm(crm: string): Promise<Doctor | undefined> {
-    const doctorFound = this.doctors.find(findDoctor => findDoctor.crm === crm);
+    const doctorFound = this.doctors.find(
+      findDoctor => findDoctor.crm === crm && !findDoctor.deleted_at,
+    );
 
     return doctorFound;
   }
 
   public async findByCellPhone(cellPhone: string): Promise<Doctor | undefined> {
     const doctorFound = this.doctors.find(
-      findDoctor => findDoctor.cellPhone === cellPhone,
+      findDoctor =>
+        findDoctor.cellPhone === cellPhone && !findDoctor.deleted_at,
     );
 
     return doctorFound;
@@ -68,7 +111,8 @@ class FakeDoctorsRepostiory implements IDoctorsRepository {
 
   public async findByCep(cep: Cep): Promise<Doctor[]> {
     const doctorsFound = this.doctors.filter(
-      filterDoctors => filterDoctors.cep.cep === cep.cep,
+      filterDoctors =>
+        filterDoctors.cep.cep === cep.cep && !filterDoctors.deleted_at,
     );
 
     return doctorsFound;
@@ -76,7 +120,8 @@ class FakeDoctorsRepostiory implements IDoctorsRepository {
 
   public async findByLandline(landline: string): Promise<Doctor[]> {
     const doctorsFound = this.doctors.filter(
-      filterDoctors => filterDoctors.landline === landline,
+      filterDoctors =>
+        filterDoctors.landline === landline && !filterDoctors.deleted_at,
     );
 
     return doctorsFound;
@@ -85,7 +130,8 @@ class FakeDoctorsRepostiory implements IDoctorsRepository {
   public async findBySpecialties(specialty: Specialty): Promise<Doctor[]> {
     const doctorsFound = this.doctors.filter(filterDoctors =>
       filterDoctors.specialties.find(
-        findSpecialty => findSpecialty.name === specialty.name,
+        findSpecialty =>
+          findSpecialty.name === specialty.name && !filterDoctors.deleted_at,
       ),
     );
 
