@@ -25,6 +25,16 @@ doctorsRoutes.post(
 doctorsRoutes.get('/', doctorsController.show);
 
 doctorsRoutes.get(
+  '/recover/:id',
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().uuid().required(),
+    },
+  }),
+  doctorsController.recover,
+);
+
+doctorsRoutes.get(
   '/:param',
   celebrate({
     [Segments.PARAMS]: {
@@ -50,6 +60,12 @@ doctorsRoutes.put(
     },
   }),
   doctorsController.update,
+);
+
+doctorsRoutes.delete(
+  '/:id',
+  celebrate({ [Segments.PARAMS]: { id: Joi.string().uuid().required() } }),
+  doctorsController.delete,
 );
 
 export default doctorsRoutes;
