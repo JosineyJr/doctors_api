@@ -111,7 +111,6 @@ tests/
  └─ package.json
 ```
 
-- **types**: Dir com alteração da interface Request, para armazenar o id do usuário logado
 - **config**: Dir com a configuração de autenticação com JWT.
 - **modules**: Dir com a implementação de todos os módulos da aplicação separados entre si.
 - **shared**: Dir com a implementação de todas as rotas da api e tudo o que é compartilhado entre os módulos.
