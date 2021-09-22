@@ -28,7 +28,7 @@ Todos os comandos abaixo são feitos no terminal
 **1** - Faça um clone do repositório e acesse o diretório criado pelo clone.
 
 ```sh
-git clone https://github.com/JosineyJr/backend_test && cd backend_test
+git clone https://github.com/JosineyJr/doctors_api && cd doctors_api
 ```
 
 **2** - Inicie a aplicação:
@@ -138,4 +138,4 @@ make run-tests
 
 O resultado dos testes são apresentados no terminal já com a informação de code coverage
 
-<img src=https://github.com/JosineyJr/backend_test/blob/main/testCoverage.png height="500">
+<img src=https://github.com/JosineyJr/doctors_api/blob/main/testCoverage.png height="500">
